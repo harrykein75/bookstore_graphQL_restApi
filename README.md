@@ -117,13 +117,16 @@ mutation {
 }
 ```
 ## Project Structure
+
+```
 ├── src/
-│ ├── models/
-│ │ └── book.js # MongoDB model definition
-│ ├── index_restapi.js # REST API implementation
-│ └── index_graphql.js # GraphQL API implementation
+│   ├── models/
+│   │   └── book.js         # MongoDB model definition
+│   ├── index_restapi.js    # REST API implementation
+│   └── index_graphql.js    # GraphQL API implementation
 ├── package.json
 └── README.md
+```
 
 ## Dependencies
 
@@ -136,11 +139,14 @@ mutation {
 ## Development
 
 1. For REST API development:
-bash
+```bash
 nodemon src/index_restapi.js
+```
+
 2. For GraphQL API development:
-bash
+```bash
 nodemon src/index_graphql.js
+```
 ## Error Handling
 
 Both APIs include error handling for:
