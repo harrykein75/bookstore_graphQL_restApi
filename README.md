@@ -7,7 +7,7 @@ A Node.js application demonstrating the implementation of both REST and GraphQL 
 - REST API endpoints for CRUD operations
 - GraphQL API with queries and mutations
 - MongoDB integration
-- GraphiQL interface for testing GraphQL queries
+- GraphQL Playground interface for testing GraphQL queries
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ cd bookstore_graphQL_restApi
 ```
 2. Install dependencies:
 ```sh
-npm install express body-parser graphql graphql-http mongoose
+npm install express body-parser graphql graphql-http mongoose graphql-playground-middleware-express
 ```
 3. Make sure MongoDB is running on your local machine (default: mongodb://localhost:27017)
 4. Start the server:
@@ -47,14 +47,15 @@ node src/index_graphql.js
 - PUT `/api/books/:id` - Update a book
 - DELETE `/api/books/:id` - Delete a book
 
-### GraphQL API (http://localhost:3000/graphql)
+### GraphQL API
 
-Access GraphiQL interface at http://localhost:3000
+- GraphQL Endpoint: http://localhost:3000/graphql
+- GraphQL Playground: http://localhost:3000/playground
 
 Example Queries:
 
 Get all books
-```
+```graphql
 query {
     books {
         id
@@ -65,7 +66,7 @@ query {
 }
 ```
 Get a specific book
-```
+```graphql
 query {
     book(id: "book_id") {
         title
@@ -75,7 +76,7 @@ query {
 }
 ```
 Create a new book
-```
+```graphql
 mutation {
     createBook(input: {
         title: "Harry Book"
@@ -90,7 +91,7 @@ mutation {
 }
 ```
 Update a book
-```
+```graphql
 mutation {
     updateBook(
         id: "book_id"
@@ -108,7 +109,7 @@ mutation {
 }
 ```
 Delete a book
-```
+```graphql
 mutation {
     deleteBook(id: "book_id") {
         id
@@ -135,6 +136,7 @@ mutation {
 - graphql - GraphQL implementation
 - graphql-http - GraphQL HTTP server middleware
 - body-parser - Request body parsing middleware
+- graphql-playground-middleware-express - GraphQL Playground interface
 
 ## Development
 
@@ -147,6 +149,7 @@ nodemon src/index_restapi.js
 ```bash
 nodemon src/index_graphql.js
 ```
+
 ## Error Handling
 
 Both APIs include error handling for:

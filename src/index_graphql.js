@@ -1,6 +1,7 @@
 const express = require('express');
 const { createHandler } = require('graphql-http/lib/use/express');
 const { buildSchema } = require('graphql');
+const expressPlayground = require('graphql-playground-middleware-express').default;
 const mongoose = require('mongoose');
 const Book = require('./models/book');
 
@@ -130,39 +131,20 @@ app.use('/graphql', createHandler({
   rootValue: root,
 }));
 
-// Add a simple HTML page with GraphiQL
-app.get('/', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <title>GraphiQL</title>
-        <style>
-          body { margin: 0; height: 100vh; }
-          #graphiql { height: 100vh; }
-        </style>
-        <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.min.css" />
-        <script src="https://unpkg.com/graphiql/graphiql.min.js"></script>
-      </head>
-      <body>
-        <div id="graphiql"></div>
-        <script>
-          const root = document.getElementById('graphiql');
-          const fetcher = GraphiQL.createFetcher({
-            url: '/graphql',
-          });
-          ReactDOM.render(
-            React.createElement(GraphiQL, { fetcher }),
-            root
-          );
-        </script>
-      </body>
-    </html>
-  `);
-});
+// Set up GraphQL Playground at /playground
+app.get('/playground', expressPlayground({
+  endpoint: '/graphql',
+  settings: {
+    'request.credentials': 'same-origin',
+    'schema.polling.enable': false,
+  }
+}));
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`
+Server is running on http://localhost:${PORT}
+GraphQL Playground available at http://localhost:${PORT}
+GraphQL endpoint at http://localhost:${PORT}/graphql
+  `);
 }); 
