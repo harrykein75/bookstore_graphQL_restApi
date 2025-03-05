@@ -8,6 +8,7 @@ A Node.js application demonstrating the implementation of both REST and GraphQL 
 - GraphQL API with queries and mutations
 - MongoDB integration
 - GraphQL Playground interface for testing GraphQL queries
+- Simple web interface for managing books
 
 ## Prerequisites
 
@@ -117,12 +118,18 @@ mutation {
     }
 }
 ```
+### Web Interface
+- http://localhost:3000 - Web interface for managing books
+
 ## Project Structure
 
 ```
 ├── src/
 │   ├── models/
 │   │   └── book.js         # MongoDB model definition
+│   ├── public/
+│   │   ├── index.html      # GraphQL frontend
+│   │   └── rest.html       # REST API frontend
 │   ├── index_restapi.js    # REST API implementation
 │   └── index_graphql.js    # GraphQL API implementation
 ├── package.json

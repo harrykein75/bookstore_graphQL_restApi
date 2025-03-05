@@ -4,8 +4,23 @@ const { buildSchema } = require('graphql');
 const expressPlayground = require('graphql-playground-middleware-express').default;
 const mongoose = require('mongoose');
 const Book = require('./models/book');
+const path = require('path');
 
 const app = express();
+
+// Enable CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/bookstore', {
@@ -139,6 +154,11 @@ app.get('/playground', expressPlayground({
     'schema.polling.enable': false,
   }
 }));
+
+// Update the root route to serve the HTML file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
