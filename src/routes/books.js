@@ -6,7 +6,13 @@ const router = express.Router();
 router.get('/books', async (req, res) => {
   try {
     const books = await Book.find();
-    res.json(books);
+    const transformedBooks = books.map(book => ({
+      id: book._id,
+      title: book.title,
+      author: book.author,
+      year: book.year
+    }));
+    res.json(transformedBooks);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -19,7 +25,12 @@ router.get('/books/:id', async (req, res) => {
     if (!book) {
       return res.status(404).json({ error: 'Book not found' });
     }
-    res.json(book);
+    res.json({
+      id: book._id,
+      title: book.title,
+      author: book.author,
+      year: book.year
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -34,7 +45,12 @@ router.post('/books', async (req, res) => {
       year: req.body.year
     });
     const savedBook = await book.save();
-    res.status(201).json(savedBook);
+    res.status(201).json({
+      id: savedBook._id,
+      title: savedBook.title,
+      author: savedBook.author,
+      year: savedBook.year
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -55,7 +71,12 @@ router.put('/books/:id', async (req, res) => {
     if (!book) {
       return res.status(404).json({ error: 'Book not found' });
     }
-    res.json(book);
+    res.json({
+      id: book._id,
+      title: book.title,
+      author: book.author,
+      year: book.year
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -68,7 +89,12 @@ router.delete('/books/:id', async (req, res) => {
     if (!book) {
       return res.status(404).json({ error: 'Book not found' });
     }
-    res.json(book);
+    res.json({
+      id: book._id,
+      title: book.title,
+      author: book.author,
+      year: book.year
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
