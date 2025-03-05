@@ -29,14 +29,8 @@ npm install express body-parser graphql graphql-http mongoose graphql-playground
 ```
 3. Make sure MongoDB is running on your local machine (default: mongodb://localhost:27017)
 4. Start the server:
-
-For REST API
 ```sh
-node src/index_restapi.js
-```
-For GraphQL API
-```sh
-node src/index_graphql.js
+node src/index.js
 ```
 ## API Endpoints
 
@@ -127,11 +121,15 @@ mutation {
 ├── src/
 │   ├── models/
 │   │   └── book.js         # MongoDB model definition
+│   ├── graphql/
+│   │   ├── schema.js       # GraphQL schema definition
+│   │   └── resolvers.js    # GraphQL resolvers
+│   ├── routes/
+│   │   └── books.js        # REST API routes
 │   ├── public/
 │   │   ├── index.html      # GraphQL frontend
 │   │   └── rest.html       # REST API frontend
-│   ├── index_restapi.js    # REST API implementation
-│   └── index_graphql.js    # GraphQL API implementation
+│   └── index.js            # Server configuration and setup
 ├── package.json
 └── README.md
 ```
